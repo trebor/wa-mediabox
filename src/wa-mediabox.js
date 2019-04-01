@@ -413,8 +413,12 @@
 			setTimeout(function(){
 				
 				//Set title
-				if(title){
-					self.title.innerHTML = titleLoader ? titleLoader() : title;
+				if (titleLoader) {
+					titleLoader(self.title);
+					self.frame.classList.add("has-title");
+
+				} else if (title) {
+					self.title.innerHTML = title;
 					self.frame.classList.add("has-title");
 				}
 
