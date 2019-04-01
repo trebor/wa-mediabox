@@ -92,12 +92,13 @@
 	/*
 	 * Media adders
 	 */
-	WAMediaBox_Gallery.prototype.addImage = function(src, title){
+	WAMediaBox_Gallery.prototype.addImage = function(src, title, titleLoader){
 
 		this.mediaList.push({
 			type: "image",
 			src: src,
-			title: title
+			title: title,
+			titleLoader: titleLoader
 		});
 
 		return this.mediaList.length - 1;
@@ -347,7 +348,7 @@
 	/*
 	 * Set media into container
 	 */
-	WAMediaBox_Gallery.prototype.setMedia = function(type, src, title, width, height){
+	WAMediaBox_Gallery.prototype.setMedia = function(type, src, title, width, height, titleLoader){
 
 		if(!this.opened) return;
 
@@ -413,7 +414,7 @@
 				
 				//Set title
 				if(title){
-					self.title.innerHTML = title;
+					self.title.innerHTML = titleLoader ? titleLoader() : title;
 					self.frame.classList.add("has-title");
 				}
 
@@ -442,7 +443,7 @@
 
 		var load = function(){
 
-			self.setMedia( self.mediaList[index].type, self.mediaList[index].src, self.mediaList[index].title, self.mediaList[index].width, self.mediaList[index].height );
+			self.setMedia( self.mediaList[index].type, self.mediaList[index].src, self.mediaList[index].title, self.mediaList[index].width, self.mediaList[index].height, self.mediaList[index].titleLoader );
 
 		};
 
@@ -531,12 +532,12 @@
 	/*
 	 * Media adders
 	 */
-	WAMediaBox.prototype.addImage = function(gallery, src, title){
+	WAMediaBox.prototype.addImage = function(gallery, src, title, titleLoader){
 
 		if(!this.galleries[gallery])
 			this.galleries[gallery] = new WAMediaBox_Gallery(this);
 
-		return this.galleries[gallery].addImage(src, title);
+		return this.galleries[gallery].addImage(src, title, titleLoader);
 
 	};
 
@@ -552,7 +553,7 @@
 	/*
 	 * Bind single elements
 	 */
-	WAMediaBox.prototype.bind = function(el){
+	WAMediaBox.prototype.bind = function(el, titleLoader){
 
 		if(el._waMediaBoxBound) return;
 
@@ -573,7 +574,7 @@
 		if(isIframe)
 			index = this.addIframe(gallery, src, title, width, height);
 		else
-			index = this.addImage(gallery, src, title);
+			index = this.addImage(gallery, src, title, titleLoader);
 		
 		//Bind open event
 		el.addEventListener("click", function(ev){
