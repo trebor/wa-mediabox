@@ -316,9 +316,10 @@
 
 		if(this.overlay.offsetWidth < 480)
 			widthLimit = 70;
-
-		var maxWidth = Math.min(this.overlay.offsetWidth * 0.8, this.overlay.offsetWidth - widthLimit);
-		var maxHeight = Math.min(this.overlay.offsetHeight * 0.8, this.overlay.offsetHeight - 64);
+		
+                var saftyFactor = 0.8;
+		var maxWidth = Math.min(this.overlay.offsetWidth * saftyFactor, this.overlay.offsetWidth - widthLimit);
+		var maxHeight = Math.min(this.overlay.offsetHeight * saftyFactor, this.overlay.offsetHeight - 64);
 
 		var targetWidth = this.containerWidth;
 		var targetHeight = this.containerHeight;
