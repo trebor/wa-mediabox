@@ -180,12 +180,10 @@
 		document.body.appendChild(this.overlay);
 
 		//Bind events
-		this.overlay.addEventListener("click", function(ev){
-
-			ev.stopPropagation();
-			self.close();
-
-		});
+// 		this.overlay.addEventListener("click", function(ev){
+// 			ev.stopPropagation();
+// 			self.close();
+// 		});
 
 		this.closeBtn.addEventListener("click", function(ev){
 
